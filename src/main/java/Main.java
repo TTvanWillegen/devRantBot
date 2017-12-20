@@ -14,6 +14,7 @@ import net.dv8tion.jda.core.exceptions.RateLimitedException;
 public class Main {
     public static void main(String[] args) {
         try {
+            System.out.println(args[0]);
             JDA api = new JDABuilder(AccountType.BOT)
                           .setToken(args[0])
                           .setGame(Game.watching("you debugging."))
