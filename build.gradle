@@ -17,5 +17,10 @@ dependencies {
     compile 'net.dv8tion:JDA:3.3.1_316'
 }
 
+run {
+    if (project.hasProperty("appArgs")) {
+        args Eval.me(appArgs)
+    }
+}
 
 mainClassName = 'Main'
