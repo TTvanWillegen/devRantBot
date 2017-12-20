@@ -2,6 +2,7 @@ group 'nl.tobyvanwillegen'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
+apply plugin: 'application'
 
 sourceCompatibility = 1.8
 
@@ -15,3 +16,6 @@ dependencies {
 
     compile 'net.dv8tion:JDA:3.3.1_316'
 }
+
+
+mainClassName = 'Main'

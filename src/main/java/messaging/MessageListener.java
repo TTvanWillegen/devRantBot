@@ -49,6 +49,10 @@ public class MessageListener extends ListenerAdapter {
                     + "provided string to personalise the message!\n"
                     + "_!welcomeMessage_ - Shows the current welcome message\n"
                     + "_!resetWelcomeMessage_ - resets the welcome message to the standard.\n\n"
+
+                    + "**COLOURING**\n"
+                    + "_!color <#color>/ !colour <#colour>_ - Used to give your name a pretty "
+                    + "colour.\n\n"
                 , channel);
 
         }
