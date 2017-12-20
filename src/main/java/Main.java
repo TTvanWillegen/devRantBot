@@ -4,6 +4,7 @@ import messaging.MessageListener;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
+import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 
 /**
@@ -15,6 +16,7 @@ public class Main {
         try {
             JDA api = new JDABuilder(AccountType.BOT)
                           .setToken(args[0])
+                          .setGame(Game.watching("you debugging."))
                           .buildAsync();
             api.addEventListener(new MessageListener());
             api.addEventListener(new EventListener());
