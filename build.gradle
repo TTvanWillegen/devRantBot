@@ -1,0 +1,17 @@
+group 'nl.tobyvanwillegen'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+    compile 'net.dv8tion:JDA:3.3.1_316'
+}
