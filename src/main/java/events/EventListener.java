@@ -20,7 +20,8 @@ public class EventListener implements net.dv8tion.jda.core.hooks.EventListener {
             String welcomeMessage = StandardMessage.getInstance().getWelcomeMessage();
 
             MessageSender.sendMessage(welcomeMessage.replace("<name>", guildMemberJoinEvent
-                                                                           .getMember().getAsMention()));
+                                                                           .getMember()
+                                                                           .getAsMention()));
         } else if (event instanceof GuildMemberNickChangeEvent) {
             GuildMemberNickChangeEvent guildMemberNickChangeEvent =
                 (GuildMemberNickChangeEvent) event;

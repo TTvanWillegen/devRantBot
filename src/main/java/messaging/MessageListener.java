@@ -1,7 +1,6 @@
 package messaging;
 
 import messaging.commands.debug.DebugCommand;
-import messaging.MessageSender;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -34,7 +33,7 @@ public class MessageListener extends ListenerAdapter {
             MessageSender.setMainChannel(channel);
             stringMessage = "Quack! This is where I make my nest!";
 
-        } else if (content.contains("WelcomeMessage")){
+        } else if (content.contains("WelcomeMessage")) {
             stringMessage = DebugCommand.getResponse(content);
 
         } else if (content.startsWith("!help")) {
