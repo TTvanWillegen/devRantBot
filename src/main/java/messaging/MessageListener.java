@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import messaging.commands.debug.DebugCommand;
+import messaging.commands.welcomeMessage.WelcomeMessageCommand;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
@@ -39,7 +40,7 @@ public class MessageListener extends ListenerAdapter {
             stringMessage = "Quack! This is where I make my nest!";
 
         } else if (content.contains("WelcomeMessage")) {
-            stringMessage = DebugCommand.getResponse(content);
+            stringMessage = WelcomeMessageCommand.getResponse(content);
 
         } else if (content.startsWith("!help")) {
             MessageSender.sendMessage(
