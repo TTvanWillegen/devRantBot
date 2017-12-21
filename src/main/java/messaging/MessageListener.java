@@ -67,13 +67,6 @@ public class MessageListener extends ListenerAdapter {
                 String colour = content.replace("!color ", "");
                 colour = colour.replace("!colour ", "");
 
-                List<Role> allRolesOfUser = event.getMember().getRoles();
-                List<Role> rolesOfUserStartingWithUSER = new ArrayList<>();
-                for (Role role : allRolesOfUser) {
-                    if (role.getName().contains("USER-")) {
-                        rolesOfUserStartingWithUSER.add(role);
-                    }
-                }
 
                 if (event.getGuild().getRolesByName("USER-" + colour, true).size() == 0) {
                     Role everyone = event.getGuild().getRolesByName("@everyone", false).get(0);
@@ -82,17 +75,12 @@ public class MessageListener extends ListenerAdapter {
                          .setColor(Color.decode(colour))
                          .queue(
                              //If the role is created, remove all assigned USER-# from the user
-                             roleCreated ->
-                                 event.getGuild().getController()
-                                      .removeRolesFromMember
-                                           (event.getMember(), rolesOfUserStartingWithUSER)
-                                      .queue(
-                                          //If all USER-# are removed, add the new one.
-                                          rolesRemoved -> event.getGuild().getController()
-                                                               .addRolesToMember(
-                                                                   event.getMember(), roleCreated)
-                                                               .queue()))
+                             roleCreated -> addRole(event, roleCreated)
+                         )
                     ;
+                } else {
+                    addRole(event, event.getGuild()
+                                        .getRolesByName("USER-" + colour, true).get(0));
                 }
             } else {
                 stringMessage = "Quack quack quackity quack! Eeeh I mean, sorry I don't have "
@@ -100,5 +88,22 @@ public class MessageListener extends ListenerAdapter {
             }
         }//mention id: <@162919329686355979>
         MessageSender.sendMessage(stringMessage, channel);
+    }
+
+    private void addRole(MessageReceivedEvent event, Role newRole) {
+        List<Role> allRolesOfUser = event.getMember().getRoles();
+        List<Role> rolesOfUserStartingWithUSER = new ArrayList<>();
+        for (Role role : allRolesOfUser) {
+            if (role.getName().contains("USER-")) {
+                rolesOfUserStartingWithUSER.add(role);
+            }
+        }
+
+        event.getGuild().getController()
+             .removeRolesFromMember(event.getMember(), rolesOfUserStartingWithUSER)
+             .queue( //If all USER-# are removed, add the new one.
+                     rolesRemoved -> event.getGuild().getController()
+                                          .addRolesToMember(event.getMember(), newRole)
+                                          .queue());
     }
 }
