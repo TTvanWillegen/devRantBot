@@ -1,7 +1,8 @@
 package messaging;
 
 import java.awt.Color;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import messaging.commands.debug.DebugCommand;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Message;
@@ -66,15 +67,32 @@ public class MessageListener extends ListenerAdapter {
                 String colour = content.replace("!color ", "");
                 colour = colour.replace("!colour ", "");
 
+                List<Role> allRolesOfUser = event.getMember().getRoles();
+                List<Role> rolesOfUserStartingWithUSER = new ArrayList<>();
+                for (Role role : allRolesOfUser) {
+                    if (role.getName().contains("USER-")) {
+                        rolesOfUserStartingWithUSER.add(role);
+                    }
+                }
 
                 if (event.getGuild().getRolesByName("USER-" + colour, true).size() == 0) {
                     Role everyone = event.getGuild().getRolesByName("@everyone", false).get(0);
                     event.getGuild().getController().createCopyOfRole(everyone)
                          .setName("USER-" + colour)
                          .setColor(Color.decode(colour))
-                         .queue(role -> event.getGuild().getController()
-                                         .addRolesToMember(event.getMember(), role)
-                                         .queue());
+                         .queue(
+                             //If the role is created, remove all assigned USER-# from the user
+                             roleCreated ->
+                                 event.getGuild().getController()
+                                      .removeRolesFromMember
+                                           (event.getMember(), rolesOfUserStartingWithUSER)
+                                      .queue(
+                                          //If all USER-# are removed, add the new one.
+                                          rolesRemoved -> event.getGuild().getController()
+                                                               .addRolesToMember(
+                                                                   event.getMember(), roleCreated)
+                                                               .queue()))
+                    ;
                 }
             } else {
                 stringMessage = "Quack quack quackity quack! Eeeh I mean, sorry I don't have "
