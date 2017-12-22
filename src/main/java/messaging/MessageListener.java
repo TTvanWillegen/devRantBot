@@ -50,7 +50,8 @@ public class MessageListener extends ListenerAdapter {
                     + "_!debug_ - What? This is used when you need to debug of course! Let this "
                     + "little quacker help you!\n\n"
 
-                    + "**WELCOME MESSAGES**\n"
+                    + "**WELCOME MESSAGES** Current status: "
+                    + (WelcomeMessageCommand.isEnabled() ? ":white_check_mark:\n" : ":x:\n")
                     + "_!setWelcomeMessage_ - Used to set the welcome message. Use <name> in the "
                     + "provided string to personalise the message!\n"
                     + "_!welcomeMessage_ - Shows the current welcome message\n"
