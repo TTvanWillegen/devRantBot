@@ -52,6 +52,7 @@ public class MessageListener extends ListenerAdapter {
 
                     + "**WELCOME MESSAGES** Current status: "
                     + (WelcomeMessageCommand.isEnabled() ? ":white_check_mark:\n" : ":x:\n")
+                    + "_!toggleWelcomeMessage_ - Used to toggle the welcome messaging on and off.\n"
                     + "_!setWelcomeMessage_ - Used to set the welcome message. Use <name> in the "
                     + "provided string to personalise the message!\n"
                     + "_!welcomeMessage_ - Shows the current welcome message\n"

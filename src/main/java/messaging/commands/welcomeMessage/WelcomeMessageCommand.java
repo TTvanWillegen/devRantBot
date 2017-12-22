@@ -10,7 +10,7 @@ public class WelcomeMessageCommand {
     private static boolean isEnabled = false;
 
     public static String getResponse(String content) {
-        if (content.startsWith("!toggleWelcomeMessage ")) {
+        if (content.startsWith("!toggleWelcomeMessage")) {
             isEnabled = !isEnabled;
             return "Quack! WelcomeMessages are now " + (isEnabled ? "on!" : "off!");
         }else if(isEnabled) {
