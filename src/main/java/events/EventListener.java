@@ -2,6 +2,7 @@ package events;
 
 import messaging.MessageSender;
 import messaging.StandardMessage;
+import messaging.commands.welcomeMessage.WelcomeMessageCommand;
 import net.dv8tion.jda.client.events.group.GroupUserLeaveEvent;
 import net.dv8tion.jda.core.events.Event;
 import net.dv8tion.jda.core.events.guild.member.GuildMemberJoinEvent;
@@ -17,9 +18,9 @@ public class EventListener implements net.dv8tion.jda.core.hooks.EventListener {
         if (event instanceof GuildMemberJoinEvent) {
             GuildMemberJoinEvent guildMemberJoinEvent = (GuildMemberJoinEvent) event;
 
-            String welcomeMessage = StandardMessage.getInstance().getWelcomeMessage();
 
-            if(welcomeMessage != null) {
+            if (WelcomeMessageCommand.isEnabled()) {
+                String welcomeMessage = StandardMessage.getInstance().getWelcomeMessage();
                 MessageSender.sendMessage(welcomeMessage.replace("<name>", guildMemberJoinEvent
                                                                                .getMember()
                                                                                .getAsMention()));
